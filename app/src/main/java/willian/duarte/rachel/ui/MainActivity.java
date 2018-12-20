@@ -1,6 +1,5 @@
 package willian.duarte.rachel.ui;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,8 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -21,7 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FrameLayout flMainFrame;
     private FloatingActionsMenu fabMenu;
     private com.getbase.floatingactionbutton.FloatingActionButton fabAddEvent;
+    private Button btAddEvent;
     private com.getbase.floatingactionbutton.FloatingActionButton fabAddClothes;
+    private Button btAddClothes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
             @Override
             public void onMenuExpanded() {
-                toast(fabAddEvent.getTitle());
+                btAddClothes.setVisibility(View.VISIBLE);
+                btAddEvent.setVisibility(View.VISIBLE);
+
             }
 
             @Override
             public void onMenuCollapsed() {
-
+                btAddClothes.setVisibility(View.INVISIBLE);
+                btAddEvent.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -47,7 +51,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ma_fab_add_event:
+            case R.id.ma_bt_add_event:
                 toast("hell yeah!");
+                fabMenu.collapse();
+                return;
+            case R.id.ma_fab_add_clothes:
+            case R.id.ma_bt_add_clothes:
+                toast("it works");
+                fabMenu.collapse();
                 return;
         }
     } // close onClick();
@@ -100,9 +111,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         fabAddEvent = findViewById(R.id.ma_fab_add_event);
         fabAddEvent.setOnClickListener(this);
-        fabAddEvent.setTitle("arroba");
 
         fabAddClothes = findViewById(R.id.ma_fab_add_clothes);
+        fabAddClothes.setOnClickListener(this);
+
+        btAddEvent = findViewById(R.id.ma_bt_add_event);
+//        btAddEvent.setText(fabAddEvent.getTitle());
+        btAddEvent.setVisibility(View.INVISIBLE);
+        btAddEvent.setOnClickListener(this);
+        btAddClothes = findViewById(R.id.ma_bt_add_clothes);
+//        btAddClothes.setText(fabAddClothes.getTitle());
+        btAddClothes.setVisibility(View.INVISIBLE);
+        btAddClothes.setOnClickListener(this);
+
+
     }// close init();
 
     private void toast(String msg){

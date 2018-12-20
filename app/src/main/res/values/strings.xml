@@ -8,6 +8,22 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="filter_tshirt">Shirts</string>
+    <string name="filter_pants">Pants</string>
+    <string name="filter_underwear">Underwear</string>
+    <string name="filter_accessories">Accessories</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ma_bt_add_event">Add Event</string>
+    <string name="ma_bt_add_clothes">Add Clothes</string>
+    <string name="login_et_email">Email</string>
+    <string name="login_et_password">Password</string>
+    <string name="login_bt_login">Login</string>
+
+    <string name="email_error">Type your email</string>
+    <string name="password_error">Type your password</string>
+    <string name="auth_email_error">Check your email</string>
+    <string name="auth_password_error">Check your password</string>
+    <string name="login_successful">You were logged in successfully</string>
 </resources>

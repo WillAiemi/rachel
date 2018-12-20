@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <group
+        android:checkableBehavior="all"
+        android:enabled="true">
+        <item
+            android:id="@+id/war_filter_shirt"
+            android:icon="@drawable/ic_t_shirt_black_24dp"
+            android:title="@string/filter_tshirt"
+            app:showAsAction="always"></item>
+
+        <item
+            android:id="@+id/war_filter_pants"
+            android:icon="@drawable/ic_pants_black_24dp"
+            android:title="@string/filter_pants"
+            app:showAsAction="always"></item>
+
+        <item
+            android:id="@+id/war_filter_underwear"
+            android:icon="@drawable/ic_undewear_black_24dp"
+            android:title="@string/filter_underwear"
+            app:showAsAction="always"></item>
+
+        <item
+            android:id="@+id/war_filter_accessories"
+            android:icon="@drawable/ic_accessories_black_24dp"
+            android:title="@string/filter_accessories"
+            app:showAsAction="always"></item>
+    </group>
+
+</menu>
