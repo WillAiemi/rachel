@@ -7,16 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <TextView
-        android:id="@+id/ma_tv_addevent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/ma_fabm_menu"
-        app:layout_constraintEnd_toStartOf="@+id/ma_fabm_menu"
-        app:layout_constraintTop_toTopOf="@+id/ma_fabm_menu"
-        app:layout_constraintVertical_bias="0.28" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ma_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/ma_fl_mainframe"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/ma_fabm_menu"
@@ -28,7 +37,7 @@
         app:fab_addButtonColorPressed="@color/colorPrimaryDark"
         app:fab_addButtonPlusIconColor="@color/white"
         app:fab_addButtonSize="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/ma_fl_mainframe"
+        app:layout_constraintBottom_toTopOf="@+id/ma_nav"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -38,8 +47,8 @@
             app:fab_colorNormal="@color/colorPrimary"
             app:fab_colorPressed="@color/colorPrimaryDark"
             app:fab_size="mini"
-            app:fab_title="@string/app_name"
-            app:fab_stroke_visible="true"/>
+            app:fab_stroke_visible="true"
+            app:fab_title="@string/app_name" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/ma_fab_add_clothes"
@@ -53,7 +62,7 @@
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/ma_nav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
@@ -63,22 +72,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
-
-    <FrameLayout
-        android:id="@+id/ma_fl_mainframe"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
