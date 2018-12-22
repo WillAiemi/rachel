@@ -1,6 +1,7 @@
 package willian.duarte.rachel.ui;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,15 +26,14 @@ import willian.duarte.rachel.model.Date;
  */
 public class FragCalendar extends Fragment {
 
+    OnDateSelectedListener mCallback;
+
     private ScrollCalendar calendar;
     private Date date;
 
     private static final String TAG = "LogsFragCalendar";
 
-    public FragCalendar() {
-        // Required empty public constructor
-    }
-
+    public FragCalendar() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +48,7 @@ public class FragCalendar extends Fragment {
             @Override
             public void onCalendarDayClicked(int year, int month, int day) {
                 if (date.getDay() == day && date.getMonth() == month && date.getYear() == year){
-
+                    mCallback.onDateSelected(date);
                 } else {
                     date.setDay(day);
                     date.setMonth(month);
@@ -75,9 +75,17 @@ public class FragCalendar extends Fragment {
         });
 
         return v;
+    } // close onCreateView();
+
+    public void setOnDateSelectedListener(Activity activity){
+        mCallback = (OnDateSelectedListener) activity;
+    }
+
+    public interface OnDateSelectedListener {
+        void onDateSelected(Date date);
     }
 
     private void toast(String msg){
         Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
-    }
+    } // close toast();
 }

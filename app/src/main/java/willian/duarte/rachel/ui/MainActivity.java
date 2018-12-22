@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,10 +17,12 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import willian.duarte.rachel.R;
+import willian.duarte.rachel.model.Date;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, FragCalendar.OnDateSelectedListener {
 
     private FrameLayout flMainFrame;
+    BottomNavigationView navigation;
     private FloatingActionsMenu fabMenu;
     private com.getbase.floatingactionbutton.FloatingActionButton fabAddEvent;
     private Button btAddEvent;
@@ -66,6 +69,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     } // close onClick();
 
+    @Override
+    public void onDateSelected(Date date) {
+        navigation.setSelectedItemId(R.id.nav_menu_item_wardrobe);
+        FragWardrobe fragWardrobe = new FragWardrobe();
+
+        Bundle args = new Bundle();
+        args.putParcelable("ARG_DATE", date);
+        fragWardrobe.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.ma_fl_mainframe,fragWardrobe);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+        toast(date.toString()+" IT WORKS!!");
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof FragCalendar){
+            FragCalendar fragCalendar = (FragCalendar) fragment;
+            fragCalendar.setOnDateSelectedListener(this);
+        }
+        super.onAttachFragment(fragment);
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -101,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void init(){
         flMainFrame = findViewById(R.id.ma_fl_mainframe);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.ma_nav);
+        navigation = (BottomNavigationView) findViewById(R.id.ma_nav);
         navigation.setSelectedItemId(R.id.nav_menu_item_home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         FragmentManager fgm = getSupportFragmentManager();
