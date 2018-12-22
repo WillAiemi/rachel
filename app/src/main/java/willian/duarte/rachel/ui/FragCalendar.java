@@ -10,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import pl.rafman.scrollcalendar.ScrollCalendar;
+import pl.rafman.scrollcalendar.contract.DateWatcher;
 import pl.rafman.scrollcalendar.contract.OnDateClickListener;
+import pl.rafman.scrollcalendar.data.CalendarDay;
 import willian.duarte.rachel.MyApplication;
 import willian.duarte.rachel.R;
 import willian.duarte.rachel.model.Date;
@@ -43,17 +47,30 @@ public class FragCalendar extends Fragment {
         calendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onCalendarDayClicked(int year, int month, int day) {
-                Log.e(TAG,"UM");
                 if (date.getDay() == day && date.getMonth() == month && date.getYear() == year){
 
                 } else {
                     date.setDay(day);
                     date.setMonth(month);
                     date.setYear(year);
-                    toast("Click again etc...");
+//                    Calendar calendar = Calendar.getInstance();
+//                    toast(calendar.get(Calendar.DAY_OF_MONTH)+"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR));
                 }
-                Log.e(TAG,"SETE");
                 return;
+            }
+        });
+
+        calendar.setDateWatcher(new DateWatcher() {
+            @Override
+            public int getStateForDate(int year, int month, int day) {
+                if (date.getDay() == day && date.getMonth() == month && date.getYear() == year){
+                    return CalendarDay.SELECTED;
+                }
+                Calendar calendar = Calendar.getInstance();
+                if (year == calendar.get(Calendar.YEAR) && month == calendar.get(Calendar.MONTH) && day == calendar.get(Calendar.DAY_OF_MONTH)){
+                    return CalendarDay.TODAY;
+                }
+                return CalendarDay.DEFAULT;
             }
         });
 

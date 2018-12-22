@@ -45,6 +45,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     startActivity(it);
                     toast("bem vindo DEUS");
                     finish();
+                    return;
                 }
                 if (etEmail.getText().toString().isEmpty()){
                     etEmail.setError(getResources().getString(R.string.email_error));
