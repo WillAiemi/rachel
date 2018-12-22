@@ -6,10 +6,13 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import willian.duarte.rachel.model.Date;
+
 public class MyApplication extends Application {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseUser firebaseUser;
+    public static Date date;
 
     @Override
     public void onCreate() {
