@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        android.support.v4.app.FragmentManager fgm = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction ft = fgm.beginTransaction();
         switch (v.getId()){
             case R.id.ma_fab_add_event:
             case R.id.ma_bt_add_event:
@@ -63,7 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             case R.id.ma_fab_add_clothes:
             case R.id.ma_bt_add_clothes:
-                toast("it works");
+                AddClothes addClothes = new AddClothes();
+                ft.replace(R.id.ma_fl_mainframe,addClothes);
+                ft.commit();
                 fabMenu.collapse();
                 return;
         }
