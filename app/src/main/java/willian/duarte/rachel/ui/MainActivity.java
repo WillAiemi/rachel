@@ -1,5 +1,6 @@
 package willian.duarte.rachel.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onMenuExpanded() {
                 btAddClothes.setVisibility(View.VISIBLE);
                 btAddEvent.setVisibility(View.VISIBLE);
-
             }
 
             @Override
@@ -65,10 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             case R.id.ma_fab_add_clothes:
             case R.id.ma_bt_add_clothes:
-                AddClothes addClothes = new AddClothes();
-                ft.replace(R.id.ma_fl_mainframe,addClothes);
-                ft.commit();
                 fabMenu.collapse();
+                Log.e(TAG,"UM");
+                Intent it = new Intent(MainActivity.this,AddClothes.class);
+                Log.e(TAG,"DOIS");
+                startActivity(it);
+                Log.e(TAG,"TRÊS");
                 return;
         }
     } // close onClick();
@@ -86,8 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.replace(R.id.ma_fl_mainframe,fragWardrobe);
         transaction.addToBackStack(null);
         transaction.commit();
-
-        toast(date.toString()+" IT WORKS!!");
     }
 
     @Override
@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.nav_menu_item_settings:
                     android.support.v4.app.FragmentManager fgm3 = getSupportFragmentManager();
                     android.support.v4.app.FragmentTransaction ft3 = fgm3.beginTransaction();
-                    FragWardrobe fragWardrobe2 = new FragWardrobe();
-                    ft3.replace(R.id.ma_fl_mainframe,fragWardrobe2);
+                    Settings settings = new Settings();
+                    ft3.replace(R.id.ma_fl_mainframe,settings);
                     ft3.commit();
                     return true;
             }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -26,6 +24,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText etPassword;
     private Button btLogin;
     private FirebaseAuth auth;
+    private Button btAnon;
 
     private MyApplication myApp;
 
@@ -46,13 +45,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login_bt_login:
-                if (etEmail.getText().toString().equalsIgnoreCase("deus")){
-                    Intent it = new Intent(Login.this,MainActivity.class);
-                    startActivity(it);
-                    toast("bem vindo DEUS");
-                    finish();
-                    return;
-                }
                 if (etEmail.getText().toString().isEmpty()){
                     etEmail.setError(getResources().getString(R.string.email_error));
                     return;
@@ -69,7 +61,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 myApp.getmAuth().signInWithEmailAndPassword(u.getEmail(),u.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        toast(task.isSuccessful() ? "a" : "b");
                         if (!task.isSuccessful()){
                             etEmail.setError(getResources().getString(R.string.auth_email_error));
                             etPassword.setError(getResources().getString(R.string.auth_password_error));
@@ -82,11 +73,29 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         finish();
                     }
                 });
+
+                break;
+            case R.id.login_bt_anon:
+                myApp.getmAuth().signInAnonymously()
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    toast(getResources().getString(R.string.login_successful));
+                                    Intent it = new Intent(Login.this,MainActivity.class);
+                                    startActivity(it);
+                                    finish();
+                                } else {
+                                    toast(getResources().getString(R.string.authentication_failed));
+                                }
+                            }
+                        });
+                break;
         }
     }
 
     private void toast(String msg){
-        Toast.makeText(getBaseContext(),msg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(),msg,Toast.LENGTH_LONG).show();
     }
 
     private void init(){
@@ -94,6 +103,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etPassword = findViewById(R.id.login_et_password);
         btLogin = findViewById(R.id.login_bt_login);
         btLogin.setOnClickListener(this);
+        btAnon = findViewById(R.id.login_bt_anon);
+        btAnon.setOnClickListener(this);
 
         myApp = new MyApplication();
         myApp.setmAuth(FirebaseAuth.getInstance());
